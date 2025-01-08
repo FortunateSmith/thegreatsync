@@ -71,28 +71,46 @@ const shippingMethodPrices = {
 };
 
 function calculateShipping(packages, cost) {
-	for (let package of packages) {
-		// STANDARD RATE
-		if (package.itemShippingMethod === "standard" && package.weight <= 10) {
-			package.shippingCost = cost.standard.small;
-		} else {
-			package.shippingCost = cost.standard.large;
+	let packageClone = structuredClone(packages);
+
+	for (let package of packageClone) {
+		
+		if (package.itemShippingMethod === "standard") {
+			package.weight <= 10 ?  package.shippingCost = cost.standard.small : package.shippingCost = cost.standard.large;
 		}
-		// EXPRESS RATE
-		if (package.itemShippingMethod === "express" && package.weight <= 10) {
-			package.shippingCost = cost.express.small;
-		} else {
-			package.shippingCost = cost.express.large;
+		
+		if (package.itemShippingMethod === "express") {
+			package.weight <= 10 ?  package.shippingCost = cost.express.small : package.shippingCost = cost.express.large;
 		}
-		// OVERNIGHT RATE
-		if (package.itemShippingMethod === "overnight" && package.weight <= 10) {
-			package.shippingCost = cost.overnight.small;
-		} else {
-			package.shippingCost = cost.overnight.large;
+		
+		if (package.itemShippingMethod === "overnight") {
+			package.weight <= 10 ?  package.shippingCost = cost.overnight.small : package.shippingCost = cost.overnight.large;
 		}
+		
+		console.log("Packages", packages[0]);
+		console.log("Package Clone", packageClone[0]);
+		
+		// // STANDARD RATE
+		// if (package.itemShippingMethod === "standard" && package.weight <= 10) {
+		// 	package.shippingCost = cost.standard.small;
+		// } else {
+		// 	package.shippingCost = cost.standard.large;
+		// }
+		// // EXPRESS RATE
+		// if (package.itemShippingMethod === "express" && package.weight <= 10) {
+		// 	package.shippingCost = cost.express.small;
+		// } else {
+		// 	package.shippingCost = cost.express.large;
+		// }
+		// // OVERNIGHT RATE
+		// if (package.itemShippingMethod === "overnight" && package.weight <= 10) {
+		// 	package.shippingCost = cost.overnight.small;
+		// } else {
+		// 	package.shippingCost = cost.overnight.large;
+		// }
 
 		console.log(
-			`The shipping cost for package ${package.id} is $${package.shippingCost}`
+			`The shipping method for package ${package.id} is ${package.itemShippingMethod} $${package.shippingCost}`
 		);
 	}
 }
