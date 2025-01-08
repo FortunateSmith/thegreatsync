@@ -71,7 +71,9 @@ const shippingMethodPrices = {
 };
 
 function calculateShipping(packages, cost) {
-	let packageClone = structuredClone(packages);
+	// let packageClone = structuredClone(packages);
+
+	let packageClone = packages.map(pack => {return {...pack}})
 
 	for (let package of packageClone) {
 		
@@ -87,7 +89,7 @@ function calculateShipping(packages, cost) {
 			package.weight <= 10 ?  package.shippingCost = cost.overnight.small : package.shippingCost = cost.overnight.large;
 		}
 		
-		console.log("Packages", packages[0]);
+		// console.log("Packages", packages[0]);
 		console.log("Package Clone", packageClone[0]);
 		
 		// // STANDARD RATE
